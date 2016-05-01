@@ -1,0 +1,166 @@
+{
+    "file_loader.json": {
+        "class": "FileLoader.JsonLoader"
+    },
+    "config.loader.parameters": {
+        "class": "Config.ParametersLoader",
+        "arguments": [
+            "@file_loader.json"
+        ]
+    },
+    "http_client": {
+        "class": "Http.HttpClient"
+    },
+    "router": {
+        "class": "Router.Router",
+        "arguments": [
+            "@file_loader.json"
+        ]
+    },
+    "data_fetcher.category_list": {
+        "class": "DataFetcher.CategoryListFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem_categories": {
+        "class": "DataFetcher.ProblemCategoriesFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem_list": {
+        "class": "DataFetcher.ProblemListFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem": {
+        "class": "DataFetcher.ProblemFetcher",
+        "arguments": [
+            "@data_fetcher.problem.specification",
+            "@data_fetcher.problem.data_files",
+            "@data_fetcher.problem.results",
+            "@data_fetcher.problem.references",
+            "@data_fetcher.problem.models",
+            "@data_fetcher.problem.cite"
+        ]
+    },
+    "data_fetcher.problem.specification": {
+        "class": "DataFetcher.ProblemFetcher.SpecificationFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.data_files": {
+        "class": "DataFetcher.ProblemFetcher.DataFilesFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.results": {
+        "class": "DataFetcher.ProblemFetcher.ResultsFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.references": {
+        "class": "DataFetcher.ProblemFetcher.ReferencesFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.models": {
+        "class": "DataFetcher.ProblemFetcher.ModelsFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.cite": {
+        "class": "DataFetcher.ProblemFetcher.CiteFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "doku.http.auth": {
+        "class": "Doku.Http.DokuHttpAuth",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "doku.http.uploader_page": {
+        "class": "Doku.Http.DokuHttpUploaderPage",
+        "arguments": [
+            "@router",
+            "@doku.http.client"
+        ]
+    },
+    "doku.http.uploader_file": {
+        "class": "Doku.Http.DokuHttpUploaderFile",
+        "arguments": [
+            "@router",
+            "@doku.http.client"
+        ]
+    },
+    "doku.http.client": {
+        "class": "Doku.Http.DokuHttpClient",
+        "arguments": [
+            "@http_client",
+            "@doku.http.auth"
+        ]
+    },
+    "doku.client": {
+        "class": "Doku.DokuClient",
+        "arguments": [
+            "@doku.http.client",
+            "@doku.http.uploader_file",
+            "@doku.http.uploader_page"
+        ]
+    },
+    "download_manager": {
+        "class": "Media.DownloadManager",
+        "arguments": [
+            "@http_client"
+        ]
+    },
+    "content.generator.category": {
+        "class": "Doku.Content.Generator.CategoryContentGenerator"
+    },
+    "content.generator.problem": {
+        "class": "Doku.Content.Generator.ProblemContentGenerator"
+    },
+    "content.generator.author": {
+        "class": "Doku.Content.Generator.AuthorContentGenerator"
+    },
+    "publisher.categories": {
+        "class": "Publisher.CategoriesPublisher",
+        "arguments": [
+            "@data_fetcher.category_list",
+            "@content.generator.category",
+            "@doku.client"
+        ]
+    },
+    "publisher.problems": {
+        "class": "Publisher.ProblemsPublisher",
+        "arguments": [
+            "@data_fetcher.problem_list",
+            "@data_fetcher.problem_categories",
+            "@publisher.problem"
+        ]
+    },
+    "publisher.problem": {
+        "class": "Publisher.ProblemPublisher",
+        "arguments": [
+            "@data_fetcher.problem",
+            "@content.generator.problem",
+            "@doku.client"
+        ]
+    },
+    "publisher.authors": {
+        "class": "Publisher.AuthorsPublisher",
+        "arguments": [
+            "@content.generator.author",
+            "@doku.client"
+        ]
+    }
+}
