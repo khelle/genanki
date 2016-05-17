@@ -49,5 +49,8 @@
             "@http_client",
             "@router"
         ]
+    },
+    "genanki.anki_generator": {
+        "class": "Genanki.AnkiGenerator"
     }
 }

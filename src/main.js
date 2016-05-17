@@ -13,7 +13,7 @@ var definitionsLang;
 module.exports.crawl = function() {
     init()
         .then(
-            function() {
+            function(prefix) {
                 return getService('data_fetcher.index').fetch(lang);
             }
         )
@@ -52,7 +52,29 @@ module.exports.crawl = function() {
         )
         .then(
             function(data) {
-                console.log(data);
+                var anki = getService('genanki.anki_generator');
+
+                return anki
+                    .open()
+                    .then(
+                        function(anki) {
+                            var promises = [];
+
+                            for (var i in data) {
+                                promises.push(
+                                    anki.write(data.term, data.definition, data.image)
+                                );
+                            }
+
+                            return Promise.all(promises);
+                        }
+                    )
+                    .then(
+                        function(anki) {
+                            return anki.close();
+                        }
+                    )
+                ;
             }
         )
         .then(
@@ -74,21 +96,7 @@ function init() {
     lang            = getParameter('lang');
     definitionsLang = getParameter('definitionsLang');
 
-    setSwigFilters();
-
     return new Promise(function(resolve) {
         resolve();
     });
-}
-
-function setSwigFilters() {
-    //Swig.setFilter('str2doku', function(input) {
-    //    return input.toLowerCase().replace(/ /g, '-');
-    //});
-    //Swig.setFilter('wrap_entities', function(input) {
-    //    return input.replace(/(&.+?;)/g, '<html>$1</html>');
-    //});
-    //Swig.setFilter('concat', function(input, string) {
-    //    return '' + input + string;
-    //});
 }
