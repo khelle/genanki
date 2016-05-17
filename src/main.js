@@ -8,19 +8,31 @@ var Swig      = use('Swig');
 var Promise   = use('Bluebird');
 
 module.exports.crawl = function() {
+    var lang = 'English';
+
     init()
         .then(
             function() {
-                return getService('data_fetcher.index').fetch('English');
+                return getService('data_fetcher.index').fetch(lang);
+            }
+        )
+        .map(
+            function(prefix) {
+                return getService('data_fetcher.terms').fetch(lang, prefix);
             }
         )
         .then(
             function(result) {
+                console.log(result);
+            }
+        )
+        .then(
+            function() {
                 console.log('Runtime success.');
             },
             function(err) {
-                console.log(err);
                 console.log('Runtime error.');
+                console.log(err);
             }
         )
     ;

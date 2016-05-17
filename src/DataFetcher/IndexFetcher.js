@@ -24,13 +24,14 @@
 
     /**
      * @public
+     * @param {string} lang
      * @returns {Promise}
      */
     IndexFetcher.prototype.fetch = function(lang) {
         var url = this.router.url('%dictionary.host%', 'dictionary.index', {
             lang: lang
         });
-        return DataFetcher.prototype.fetch.call(this, url, 'abc');
+        return DataFetcher.prototype.fetch.call(this, url);
     };
 
     /**
@@ -40,6 +41,7 @@
      * @returns {object}
      */
     IndexFetcher.prototype.extractData = function($, url) {
+
         var tag = url.split('/').pop();
         var reg = new RegExp('^\/wiki\/' + tag + '\/([a-zA-Z0-9]*?)$', 'i');
         var rep = new RegExp(tag + '\/', 'i');

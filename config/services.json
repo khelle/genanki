@@ -24,8 +24,8 @@
             "@router"
         ]
     },
-    "data_fetcher.definitions": {
-        "class": "DataFetcher.DefinitionsFetcher",
+    "data_fetcher.terms": {
+        "class": "DataFetcher.TermsFetcher",
         "arguments": [
             "@http_client",
             "@router"

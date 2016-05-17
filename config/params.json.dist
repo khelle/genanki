@@ -1,3 +1,5 @@
 {
-    "dictionary.host": "https://en.wiktionary.org/"
+    "dictionary.host": "https://en.wiktionary.org/",
+
+    "termsLimit": 50
 }

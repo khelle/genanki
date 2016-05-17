@@ -1,3 +1,4 @@
 {
-    "dictionary.index": "wiki/Index:{lang}"
+    "dictionary.index": "wiki/Index:{lang}",
+    "dictionary.terms": "wiki/Index:{lang}/{prefix}"
 }
