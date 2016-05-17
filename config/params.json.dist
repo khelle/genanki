@@ -1,5 +1,7 @@
 {
     "dictionary.host": "https://en.wiktionary.org/",
 
+    "lang": "English",
+    "definitionsLang": "en",
     "termsLimit": 50
 }

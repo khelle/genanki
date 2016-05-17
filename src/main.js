@@ -7,9 +7,10 @@ var Container = use('Service.Container');
 var Swig      = use('Swig');
 var Promise   = use('Bluebird');
 
-module.exports.crawl = function() {
-    var lang = 'English';
+var lang;
+var definitionsLang;
 
+module.exports.crawl = function() {
     init()
         .then(
             function() {
@@ -41,6 +42,9 @@ module.exports.crawl = function() {
 function init() {
     global.app.container = new Service.Container();
     getService('config.loader.parameters').load();
+
+    lang            = getParameter('lang');
+    definitionsLang = getParameter('definitionsLang');
 
     setSwigFilters();
 
