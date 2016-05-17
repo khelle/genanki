@@ -1,7 +1,7 @@
 {
     "lang": "English",
     "definitionsLang": "en",
-    "termsLimit": 50
+    "termsLimit": 5,
     "dictionary.host": "https://en.wiktionary.org/",
     "anki.collection.media": "<collection.media.dir>",
     "google.host": "https://www.google.pl/",

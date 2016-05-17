@@ -3,12 +3,14 @@
 
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
+    var currentWord;
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
      * @param {Router} router
      */
-    function DefinitionFetcher(router) {
+    function DefinitionFetcher(httpClient, router) {
         /**
          * @private
          * @member {Router} router
@@ -17,7 +19,7 @@
             value: router
         });
 
-        DataFetcher.call(this);
+        DataFetcher.call(this, httpClient);
     }
 
     /**
@@ -25,9 +27,16 @@
      * @returns {Promise}
      */
     DefinitionFetcher.prototype.fetch = function(lang, word) {
-        var url = this.router.url();
-        return DataFetcher.prototype.fetch.call(this, this.url);
+        var url = this.router.url(getHost(lang), 'dictionary.definition', {word: word});
+
+        currentWord = word;
+
+        return DataFetcher.prototype.fetch.call(this, url);
     };
+
+    function getHost(lang) {
+        return 'https://' + lang + '.wiktionary.org/';
+    }
 
     /**
      * @protected
@@ -35,19 +44,10 @@
      * @returns {object}
      */
     DefinitionFetcher.prototype.extractData = function($) {
-        return $('h2.smaller').map(function(i, category) {
-            var $category = $(category);
-            var problems = $category.next('table').find('a').map(function(i, problem) {
-                var $problem = $(problem);
-
-                return $problem.text().trim();
-            }).toArray();
-
-            return {
-                name: $category.text(),
-                problems: problems
-            }
-        }).toArray();
+        return {
+            term: currentWord,
+            definition: $('#mw-content-text').wrap('<div></div>').parent().html()
+        };
     };
 
     Util.inherits(DefinitionFetcher, DataFetcher);

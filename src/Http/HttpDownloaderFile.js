@@ -39,6 +39,7 @@
 
                 return new Promise(function(resolve) {
                     Fs.writeFile(path, response.body, 'binary');
+
                     resolve({
                         path: path,
                         name: fullName

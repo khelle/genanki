@@ -61,7 +61,7 @@
                 }
 
                 var classNode = null;
-                var classScope = GLOBAL;
+                var classScope = global;
 
                 for (var key=0; key<classTree.length; key++) {
                     classNode = classTree[key];

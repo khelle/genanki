@@ -23,13 +23,38 @@ module.exports.crawl = function() {
             }
         )
         .then(
-            function(result) {
-                console.log(result);
+            function(data) {
+                var fetcher = getService('data_fetcher.definition');
+                var promises = [];
+
+                for (var i in data) {
+                    for (var j in data[i]) {
+                        var term = data[i][j];
+                        promises.push(fetcher.fetch(definitionsLang, term));
+                    }
+                }
+
+                return Promise.all(promises)
             }
         )
-        .then(function() {
-            return getService('data_fetcher.image').fetch('pl', 'smallhorse');
-        })
+        .then(
+            function(data) {
+                var fetcher = getService('data_fetcher.image');
+                var promises = [];
+
+                for (var i in data) {
+                    var wordData = data[i];
+                    promises.push(fetcher.fetch(definitionsLang, wordData));
+                }
+
+                return Promise.all(promises)
+            }
+        )
+        .then(
+            function(data) {
+                console.log(data);
+            }
+        )
         .then(
             function() {
                 console.log('Runtime success.');

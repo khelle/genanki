@@ -46,6 +46,7 @@
     "data_fetcher.definition": {
         "class": "DataFetcher.DefinitionFetcher",
         "arguments": [
+            "@http_client",
             "@router"
         ]
     }
