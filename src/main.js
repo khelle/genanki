@@ -36,6 +36,9 @@ module.exports.crawl = function() {
                 console.log(err);
             }
         )
+        .then(function() {
+            return getService('data_fetcher.image').fetch('pl', 'smallhorse');
+        })
     ;
 };
 

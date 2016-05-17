@@ -1,21 +1,22 @@
 {
-    "name": "genanki",
-    "version": "0.0.1",
-    "description": "Genanki Crawler",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/khelle/genanki.git"
-    },
-    "bin": "bin/crawl.js",
-    "main": "src/main.js",
-    "dependencies": {
-        "bluebird": "^3.3.4",
-        "cheerio": "^0.20.0",
-        "request": "^2.69.0",
-        "auto-loader": "^0.2.0",
-        "merge": "^1.2.0",
-        "tmp": "^0.0.28",
-        "swig": "^1.4.2"
-    }
+  "name": "genanki",
+  "version": "0.0.1",
+  "description": "Genanki Crawler",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khelle/genanki.git"
+  },
+  "bin": "bin/crawl.js",
+  "main": "src/main.js",
+  "dependencies": {
+    "auto-loader": "^0.2.0",
+    "bluebird": "^3.3.4",
+    "cheerio": "^0.20.0",
+    "google-images": "^1.0.0",
+    "merge": "^1.2.0",
+    "request": "^2.69.0",
+    "swig": "^1.4.2",
+    "tmp": "^0.0.28"
+  }
 }

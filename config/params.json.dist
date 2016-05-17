@@ -1,7 +1,10 @@
 {
-    "dictionary.host": "https://en.wiktionary.org/",
-
     "lang": "English",
     "definitionsLang": "en",
     "termsLimit": 50
+    "dictionary.host": "https://en.wiktionary.org/",
+    "anki.collection.media": "<collection.media.dir>",
+    "google.host": "https://www.google.pl/",
+    "google.custom_search.images.cse_id": "<cse-id>",
+    "google.custom_search.images.api_key": "<api-key>"
 }

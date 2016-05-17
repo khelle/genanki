@@ -1,4 +1,5 @@
 {
     "dictionary.index": "wiki/Index:{lang}",
-    "dictionary.terms": "wiki/Index:{lang}/{prefix}"
+    "dictionary.terms": "wiki/Index:{lang}/{prefix}",
+    "dictionary.definition": "wiki/{word}"
 }
