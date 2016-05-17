@@ -27,6 +27,9 @@ module.exports.crawl = function() {
                 console.log(result);
             }
         )
+        .then(function() {
+            return getService('data_fetcher.image').fetch('pl', 'smallhorse');
+        })
         .then(
             function() {
                 console.log('Runtime success.');
@@ -36,9 +39,6 @@ module.exports.crawl = function() {
                 console.log(err);
             }
         )
-        .then(function() {
-            return getService('data_fetcher.image').fetch('pl', 'smallhorse');
-        })
     ;
 };
 
