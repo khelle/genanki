@@ -13,19 +13,25 @@
 
         /**
          * @private
-         * @member {string} url
+         * @member {Router} router
          */
-        Object.defineProperty(this, 'url', {
-            value: router.url('%dictionary.host%', 'dictionary.lemmas')
+        Object.defineProperty(this, 'router', {
+            value: router
         });
+
+        DataFetcher.call(this, httpClient);
     }
 
     /**
      * @public
      * @returns {Promise}
      */
-    CategoryListFetcher.prototype.fetch = function() {
-        return DataFetcher.prototype.fetch.call(this, this.url);
+    DefinitionsFetcher.prototype.fetch = function(lang, letter) {
+        var url = this.router.url('%dictionary.host%', 'dictionary.lemmas', {
+            lang: lang,
+            letter: letter
+        });
+        return DataFetcher.prototype.fetch.call(this, url);
     };
 
     /**
@@ -33,7 +39,7 @@
      * @param {Cheerio} $
      * @returns {object}
      */
-    CategoryListFetcher.prototype.extractData = function($) {
+    DefinitionsFetcher.prototype.extractData = function($) {
 
         console.log($);
         //return $('h2.smaller').map(function(i, category) {

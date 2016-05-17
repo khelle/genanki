@@ -10,10 +10,16 @@ var Promise   = use('Bluebird');
 module.exports.crawl = function() {
     init()
         .then(
+            function() {
+                return getService('data_fetcher.index').fetch('English');
+            }
+        )
+        .then(
             function(result) {
                 console.log('Runtime success.');
             },
             function(err) {
+                console.log(err);
                 console.log('Runtime error.');
             }
         )
@@ -32,13 +38,13 @@ function init() {
 }
 
 function setSwigFilters() {
-    //swig.setFilter('str2doku', function(input) {
+    //Swig.setFilter('str2doku', function(input) {
     //    return input.toLowerCase().replace(/ /g, '-');
     //});
-    //swig.setFilter('wrap_entities', function(input) {
+    //Swig.setFilter('wrap_entities', function(input) {
     //    return input.replace(/(&.+?;)/g, '<html>$1</html>');
     //});
-    //swig.setFilter('concat', function(input, string) {
+    //Swig.setFilter('concat', function(input, string) {
     //    return '' + input + string;
     //});
 }

@@ -17,8 +17,15 @@
             "@file_loader.json"
         ]
     },
-    "data_fetcher.definition": {
-        "class": "DataFetcher.DefinitionFetcher",
+    "data_fetcher.index": {
+        "class": "DataFetcher.IndexFetcher",
+        "arguments": [
+            "@http_client",
+            "@router"
+        ]
+    },
+    "data_fetcher.definitions": {
+        "class": "DataFetcher.DefinitionsFetcher",
         "arguments": [
             "@http_client",
             "@router"

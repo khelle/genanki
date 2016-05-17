@@ -6,15 +6,16 @@
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
      */
-    function DataFetcher() {
+    function DataFetcher(httpClient) {
 
         /**
          * @private
          * @member {HttpClient} httpClient
          */
         Object.defineProperty(this, 'httpClient', {
-            value: new HttpClient()
+            value: httpClient
         });
     }
 
@@ -25,11 +26,17 @@
      */
     DataFetcher.prototype.fetch = function(url) {
         var promise = this.httpClient.get(url);
+        var args    = [];
+        var key;
+
+        for (key in arguments) {
+            args.push(arguments[key]);
+        }
 
         return promise.then((function(context) {
             return function(result) {
                 var $ = cheerio.load(result.body);
-                return context.extractData($);
+                return context.extractData.apply(this, [ $ ].concat(args));
             };
         })(this));
     };
