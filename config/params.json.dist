@@ -3,6 +3,7 @@
     "definitionsLang": "en",
     "termsLimit": 5,
     "dictionary.host": "https://en.wiktionary.org/",
+    "anki.collection.data": "<collection.data.dir>",
     "anki.collection.media": "<collection.media.dir>",
     "google.host": "https://www.google.pl/",
     "google.custom_search.images.cse_id": "<cse-id>",

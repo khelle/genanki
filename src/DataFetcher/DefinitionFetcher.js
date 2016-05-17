@@ -46,7 +46,7 @@
     DefinitionFetcher.prototype.extractData = function($) {
         return {
             term: currentWord,
-            definition: $('#mw-content-text').wrap('<div></div>').parent().html()
+            definition: $('#mw-content-text').wrap('<div></div>').parent().html().replace(/\r?\n/g, '<br>').replace(/;/g, '&#59;')
         };
     };
 

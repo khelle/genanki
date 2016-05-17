@@ -12,18 +12,19 @@ var definitionsLang;
 
 module.exports.crawl = function() {
     init()
-        .then(
-            function(prefix) {
-                return getService('data_fetcher.index').fetch(lang);
-            }
-        )
-        .map(
-            function(prefix) {
-                return getService('data_fetcher.terms').fetch(lang, prefix);
-            }
-        )
+        //.then(
+        //    function() {
+        //        return getService('data_fetcher.index').fetch(lang);
+        //    }
+        //)
+        //.map(
+        //    function(prefix) {
+        //        return getService('data_fetcher.terms').fetch(lang, prefix);
+        //    }
+        //)
         .then(
             function(data) {
+                data = [['horse']];
                 var fetcher = getService('data_fetcher.definition');
                 var promises = [];
 
@@ -61,8 +62,10 @@ module.exports.crawl = function() {
                             var promises = [];
 
                             for (var i in data) {
+                                var wordData = data[i];
+
                                 promises.push(
-                                    anki.write(data.term, data.definition, data.image)
+                                    anki.write(wordData.term, wordData.definition, wordData.image)
                                 );
                             }
 
