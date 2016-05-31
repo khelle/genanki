@@ -30,10 +30,8 @@ module.exports.crawl = function() {
                 var promises = [];
 
                 for (var i in data) {
-                    for (var j in data[i]) {
-                        var term = data[i][j];
+                        var term = data[i];
                         promises.push(fetcher.fetch(definitionsLang, term));
-                    }
                 }
 
                 return Promise.all(promises)
