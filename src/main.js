@@ -4,7 +4,6 @@ global.app = {};
 global.app.rootDir = require('path').resolve(__dirname);
 
 var Container = use('Service.Container');
-var Swig      = use('Swig');
 var Promise   = use('Bluebird');
 
 var lang;
@@ -12,19 +11,21 @@ var definitionsLang;
 
 module.exports.crawl = function() {
     init()
-        //.then(
-        //    function() {
-        //        return getService('data_fetcher.index').fetch(lang);
-        //    }
-        //)
-        //.map(
-        //    function(prefix) {
-        //        return getService('data_fetcher.terms').fetch(lang, prefix);
-        //    }
-        //)
+        .then(function() {
+            var terms = [];
+
+            if (typeof global.app.params.terms !== 'undefined') {
+                terms = global.app.params.terms.split(',');
+
+                for (var i in terms) {
+                    terms[i] = terms[i].trim();
+                }
+            }
+
+            return terms;
+        })
         .then(
             function(data) {
-                data = [['horse']];
                 var fetcher = getService('data_fetcher.definition');
                 var promises = [];
 
@@ -69,7 +70,13 @@ module.exports.crawl = function() {
                                 );
                             }
 
-                            return Promise.all(promises);
+                            return Promise
+                                .all(promises)
+                                .then(
+                                    function() {
+                                        return anki;
+                                    }
+                                );
                         }
                     )
                     .then(

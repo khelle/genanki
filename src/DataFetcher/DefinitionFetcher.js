@@ -3,7 +3,6 @@
 
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
-    var currentWord;
 
     /**
      * @constructor
@@ -29,24 +28,24 @@
     DefinitionFetcher.prototype.fetch = function(lang, word) {
         var url = this.router.url(getHost(lang), 'dictionary.definition', {word: word});
 
-        currentWord = word;
-
-        return DataFetcher.prototype.fetch.call(this, url);
+        return DataFetcher.prototype.fetch.call(this, url, word);
     };
 
     function getHost(lang) {
-        return 'https://' + lang + '.wiktionary.org/';
+        return 'https://' + lang + '.wikipedia.org/';
     }
 
     /**
      * @protected
      * @param {Cheerio} $
+     * @param {string} url
+     * @param {string} word
      * @returns {object}
      */
-    DefinitionFetcher.prototype.extractData = function($) {
+    DefinitionFetcher.prototype.extractData = function($, url, word) {
         return {
-            term: currentWord,
-            definition: $('#mw-content-text').wrap('<div></div>').parent().html().replace(/\r?\n/g, '<br>').replace(/;/g, '&#59;')
+            term: word,
+            definition: $('#mw-content-text').children('p').first().text().replace(/\r?\n/g, '<br>')//.replace(/;/g, '&#59;')
         };
     };
 

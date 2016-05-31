@@ -36,7 +36,7 @@
         var self = this;
 
         return new Promise(function(resolve) {
-            self.stream = Fs.createWriteStream(self.path);
+            self.stream = Fs.createWriteStream(self.path, {flags: 'w'});
             resolve(self);
         })
     };
@@ -64,7 +64,7 @@
      */
     AnkiGenerator.prototype.write = function(term, definition, image) {
         var self = this;
-        var str = term + '; ' + definition + '; <img src="' + image + '">';
+        var str = term + '\t' + definition + '\t<img src="' + image + '">\n';
 
         return new Promise(function(resolve, reject) {
             var status = self.stream.write(str, function() {
